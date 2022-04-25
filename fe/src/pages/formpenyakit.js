@@ -16,18 +16,14 @@ class PenyakitForm extends React.Component {
 
    handleSubmit(event) {
       event.preventDefault();
-      alert("A name was submitted: " + this.state.value + " textpenyakit : " + this.state.chosenValue);
+      // alert("A name was submitted: " + this.state.value + " textpenyakit : " + this.state.chosenValue);
       while (!this.state.textloaded) {}
-      alert(this.state.text);
-      console.log(this.state.text);
-      axios
-         .post("http://localhost:9000/users/api", {
-            Name: this.state.value,
-            textPenyakit: this.state.text,
-         })
-         .then(function (response) {
-            console.log(response);
-         });
+      axios.post("http://localhost:9000/users/api", {
+         Name: this.state.value,
+         textPenyakit: this.state.text,
+      });
+      alert("Data berhasil ditambahkan");
+      window.location.replace(window.location);
    }
    onDropdownChange = (e) => {
       this.setState({ chosenValue: e.target.value });

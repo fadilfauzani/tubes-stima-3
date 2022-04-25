@@ -30,11 +30,17 @@ class NameForm extends React.Component {
    handleSubmit(event) {
       event.preventDefault();
       while (!this.state.textloaded) {}
+      // console.log("submitted");
+
       axios.post("http://localhost:9000/api/penyakit-hist", {
          Name: this.state.nama,
          idPenyakit: this.state.idPenyakit,
          textDNA: this.state.text,
       });
+      // console.log("submitted");
+      alert("Data berhasil ditambahkan");
+      window.location.replace(window.location);
+      // document.getElementById("myForm").reset();
    }
    componentDidMount() {
       fetch("http://localhost:9000/api/penyakit")
@@ -58,7 +64,7 @@ class NameForm extends React.Component {
    render() {
       if (this.state.success)
          return (
-            <form onSubmit={this.handleSubmit}>
+            <form id="myForm" onSubmit={this.handleSubmit}>
                <label>
                   Name:
                   <input type="text" value={this.state.value} onChange={this.handleChange} />

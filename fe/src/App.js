@@ -10,8 +10,8 @@ function App() {
       <BrowserRouter>
          <Routes>
             <Route path="/" element={<Layout />}>
-               <Route path="/add-penyakit" element={<NameForm />} />
-               <Route path="/add-test" element={<PenyakitForm />} />
+               <Route path="/add-test" element={<NameForm />} />
+               <Route path="/add-penyakit" element={<PenyakitForm />} />
                <Route path="/history" element={<History />} />
             </Route>
          </Routes>
