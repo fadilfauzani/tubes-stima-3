@@ -25,7 +25,7 @@ router.post("/penyakit", function (req, res, next) {
    });
 });
 router.get("/penyakit-hist", function (req, res, next) {
-   client.query("SELECT nama_pengguna, CONCAT(date_part('day', tanggal_test), '-', TRIM(TO_CHAR(tanggal_test, 'Month')), '-', date_part('year', tanggal_test)) as tanggal_test, nama_penyakit, hasil FROM history_dna", (errp, resp) => {
+   client.query("SELECT id, nama_pengguna, CONCAT(date_part('day', tanggal_test), '-', TRIM(TO_CHAR(tanggal_test, 'Month')), '-', date_part('year', tanggal_test)) as tanggal_test, nama_penyakit, hasil FROM history_dna", (errp, resp) => {
       if (!errp) {
          res.send(resp);
       } else {

@@ -24,7 +24,7 @@ class History extends React.Component {
          const list = [];
          this.state.list.rows.forEach((element) => {
             list.push(
-               <h1>
+               <h1 key={element.id}>
                   {element.tanggal_test}-{element.nama_pengguna}-{element.nama_penyakit}-{element.hasil.toString()}
                </h1>
             );
