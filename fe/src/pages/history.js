@@ -7,19 +7,31 @@ class History extends React.Component {
       this.state = {
          list: [],
          success: false,
+         text: "",
       };
+      // this.delta = this.delta.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+   }
+   handleChange(event) {
+      this.setState({ text: event.target.value });
+      this.takeData();
    }
    componentDidMount() {
+      this.takeData();
+   }
+   takeData() {
+      // console.log(this.state.text);
       axios
-         .get("http://localhost:9000/api/penyakit-hist")
+         .post("http://localhost:9000/api/penyakit-histo", { text: this.state.text })
          .then((response) => response.data)
          .then((item) => this.setState({ list: item }))
          .then(() => {
             this.setState({ success: true });
-            console.log(this.state.list);
+            // console.log(this.state.list);
          });
    }
    render() {
+      // this.takeData();
       if (this.state.success) {
          const list = [];
          this.state.list.rows.forEach((element) => {
@@ -29,7 +41,12 @@ class History extends React.Component {
                </h1>
             );
          });
-         return <div> {list} </div>;
+         return (
+            <div>
+               <input type="text" value={this.state.text} onChange={this.handleChange} />
+               <div> {list} </div>
+            </div>
+         );
       } else return <p> Loading... </p>;
    }
 }
