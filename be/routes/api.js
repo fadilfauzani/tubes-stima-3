@@ -77,7 +77,7 @@ router.post("/penyakit-histo", function (req, res, next) {
 router.post("/penyakit-hist", function (req, res, next) {
    var namapenyakit, rantai, hasil;
    // console.log(req.body.textDNA, isDNAValid(req.body.textDNA));
-   if (isDNAValid(req.body.textDNA)) {
+   if (isDNAValid(req.body.textDNA) && req.body.idPenyakit != 0) {
       Promise.all([getNamaPenyakit(req.body.idPenyakit), getRantai(req.body.idPenyakit)]).then((data) => {
          namapenyakit = data[0];
          rantai = data[1];
