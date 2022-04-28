@@ -44,7 +44,7 @@ router.post("/penyakit-hist", function (req, res, next) {
          namapenyakit = data[0];
          rantai = data[1];
          // console.log(rantai);
-         hasil = str_compare(req.body.textDNA, rantai);
+         hasil = str_compare(rantai, req.body.textDNA);
          // console.log(req.body.Name + " " + namapenyakit + " " + hasil);
          client.query("INSERT INTO history_dna (nama_pengguna, nama_penyakit, hasil) VALUES ('" + req.body.Name + "', '" + namapenyakit + "', '" + hasil + "')", (err, resp) => {
             if (!err) {
