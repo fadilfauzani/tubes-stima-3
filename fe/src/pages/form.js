@@ -17,7 +17,7 @@ export const Dropdown = (props) => {
 class NameForm extends React.Component {
    constructor(props) {
       super(props);
-      this.state = { nama: "", list: [], idPenyakit: 0, success: false, textloaded: false, text: "" };
+      this.state = { nama: "", list: [], idPenyakit: 0, success: false, textloaded: false, text: "", hasil: "" };
 
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,15 +32,28 @@ class NameForm extends React.Component {
       while (!this.state.textloaded) {}
       // console.log("submitted");
 
-      axios.post("http://localhost:9000/api/penyakit-hist", {
-         Name: this.state.nama,
-         idPenyakit: this.state.idPenyakit,
-         textDNA: this.state.text,
-      });
-      // console.log("submitted");
-      alert("Data berhasil ditambahkan");
-      window.location.replace(window.location);
-      // document.getElementById("myForm").reset();
+      axios
+         .post("http://localhost:9000/api/penyakit-hist", {
+            Name: this.state.nama,
+            idPenyakit: this.state.idPenyakit,
+            textDNA: this.state.text,
+         })
+         .then((res) => {
+            alert(res.data.type);
+            if (res.data.success) {
+               let date = new Date();
+               var str = "";
+               str += date.toLocaleString("id", { day: "numeric", year: "numeric", month: "long" }) + "-";
+               str += res.data.nama + "-";
+               str += res.data.penyakit + "-";
+               str += res.data.hasil;
+               this.setState({ hasil: str });
+            }
+         })
+         .catch((err) => {
+            alert(err);
+         });
+      // window.location.replace(window.location);
    }
    componentDidMount() {
       fetch("http://localhost:9000/api/penyakit")
@@ -75,6 +88,7 @@ class NameForm extends React.Component {
                </div>
                <input type="file" accept=".txt" onChange={(e) => this.showFile(e)} />
                <input type="submit" value="Submit" />
+               <h1>{this.state.hasil}</h1>
             </form>
          );
    }
